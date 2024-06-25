@@ -9,7 +9,6 @@
 - [Features](#features)
 - [Adjustable parameters](#adjustable-parameters)
 - [Installation](#installation)
-- [Prerequisites](#Prerequisites)
 - [Contributing](#Contributing)
 
 ## Features
@@ -29,9 +28,6 @@
 ## Installation
 - Download all the files and put it somewhere in a folder.
 - Just change some properties in the main.c file, and compile.
-
-### Prerequisites
-- C compiler (e.g., GCC for Linux/Mac, MinGW for Windows)
 
 ### Contributing
 
