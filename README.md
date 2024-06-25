@@ -27,7 +27,7 @@
 
 ## Installation
 - Download all the files and put it somewhere in a folder.
-- Just change some properties in the main.c file, and compile.
+- If you want to change some properties, they are in the main.c file, and then **compile**.
 
 ### Contributing
 
