@@ -7,9 +7,9 @@
 ## Table of Contents
 
 - [Features](#features)
+- [Adjustable parameters](#adjustable-parameters)
 - [Installation](#installation)
 - [Prerequisites](#Prerequisites)
-- [Adjustable parameters](#adjustable-parameters)
 - [Contributing](#Contributing)
 
 ## Features
