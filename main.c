@@ -15,19 +15,35 @@ unsigned short DY[] = {0, -1, 0, 1, 0};
 unsigned short OPP[] = {0, 3, 4, 1, 2};
 
 const int wallThickness = 1;
-const int gridWidth = 25;
-const int gridHeight = 25;
-const int cellWidth = 3;
-const int cellHeight = 3;
+const int gridWidth = 16;
+const int gridHeight = 32;
+const int cellWidth = 4;
+const int cellHeight = 4;
 
 void mazeToImage(unsigned char **maze, unsigned char **image, int gridWidth, int gridHeight, int imageWidth, int imageHeight) {
     for (int i = 0; i < gridWidth; i++) {
         for (int j = 0; j < gridHeight; j++) {
-            square(i*(cellWidth + wallThickness) + wallThickness,
+            square(
+            i*(cellWidth + wallThickness) + wallThickness, 
             j*(cellHeight + wallThickness) + wallThickness,
             cellWidth,
             cellHeight,
             1,image,imageWidth,imageHeight);
+            char xOffset = 0;
+            char yOffset = 0;
+            unsigned char a = maze[i][j];
+            if (a == 1) {yOffset = -1;}
+            if (a == 2) {xOffset = 1; }
+           if (a == 3) {yOffset = 1; }
+            if (a == 4) {xOffset = -1;}
+            if ((xOffset != 0 ) | ( yOffset != 0)) {
+                square(
+                i*(cellWidth + wallThickness) + wallThickness + wallThickness*xOffset,
+                j*(cellHeight + wallThickness) + wallThickness + wallThickness*yOffset,
+                cellWidth,                                            
+                cellHeight,
+                1,image,imageWidth,imageHeight); 
+            }
         }
     }
 }
@@ -36,18 +52,17 @@ int main() {
     int imageWidth = (gridWidth * (cellWidth + wallThickness)) + wallThickness;
     int imageHeight = (gridHeight * (cellHeight + wallThickness)) + wallThickness;
 
-
-
     unsigned char **image = allocate_and_initialize_image(imageWidth, imageHeight);
     unsigned char **maze = allocate_and_initialize_maze(gridWidth, gridHeight);
 
-    //maze[1][1] = 1;
-    //maze[2][1] = 1;
-    //maze[2][2] = 1;
-    //maze[3][2] = 1;
-    //maze[15][15] = 1;
+    maze[1][1] = 1;
+    //maze[5][4] = 2;
+    //maze[7][8] = 3;
+    //maze[2][8] = 4;
+    //maze[16][14] = 2;
 
-    //printf(imageWidth);
+    printf("maze %d\n",maze[16][14]);
+
 
     mazeToImage(maze, image, gridWidth, gridHeight, imageWidth, imageHeight);
 
