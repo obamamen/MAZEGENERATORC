@@ -33,8 +33,8 @@ typedef struct {
 #pragma pack(pop)
 
 void create_1bit_bmp_from_array(const char *filename, int width, int height, unsigned char **array) {
-    int padding = (4 - ((width / 8) % 4)) % 4;
-    int fileSize = 54 + 8 + (width / 8 + padding) * height;
+    int paddedRowSize = (width + 31) / 32 * 4;
+    int fileSize = 54 + 8 + paddedRowSize * height;
 
     BITMAPFILEHEADER fileHeader = {0};
     fileHeader.bfType = 0x4D42; // 'BM'
@@ -48,7 +48,7 @@ void create_1bit_bmp_from_array(const char *filename, int width, int height, uns
     infoHeader.biPlanes = 1;
     infoHeader.biBitCount = 1;
     infoHeader.biCompression = 0;
-    infoHeader.biSizeImage = (width / 8 + padding) * height;
+    infoHeader.biSizeImage = paddedRowSize * height;
     infoHeader.biXPelsPerMeter = 2835;
     infoHeader.biYPelsPerMeter = 2835;
     infoHeader.biClrUsed = 2;
@@ -64,7 +64,7 @@ void create_1bit_bmp_from_array(const char *filename, int width, int height, uns
 
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
-            int byteIndex = (x / 8) + (width / 8 + padding) * y;
+            int byteIndex = (x / 8) + paddedRowSize * y;
             int bitIndex = x % 8;
             if (array[height - y - 1][x]) { // Note: BMP files are bottom to top
                 bitmapData[byteIndex] |= (1 << (7 - bitIndex)); // Set bit to 1 (white)
