@@ -14,7 +14,7 @@ void create_png_from_array(const char *filename, int width, int height, unsigned
         fprintf(stderr, "Unable to allocate memory for image data.\n");
         return;
     }
-
+    
     // Initialize image data to zero
     memset(image, 0, image_size);
 
@@ -22,6 +22,7 @@ void create_png_from_array(const char *filename, int width, int height, unsigned
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
             if (array[y][x]) {
+                //printf("at pixel (%d, %d)", x,y);
                 size_t byte_index = (y * width + x) / 8;
                 size_t bit_index = 7 - ((y * width + x) % 8);
                 image[byte_index] |= (1 << bit_index); // Set the corresponding bit

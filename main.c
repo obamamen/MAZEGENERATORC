@@ -5,14 +5,15 @@
 #include "pngmaker.c"
 
 const int wallThickness = 1;
-const int gridWidth = 10000;
-const int gridHeight = 10000;
+const int gridWidth = 200;
+const int gridHeight = 4;
 const int cellWidth = 2;
 const int cellHeight = 2;
 
 void mazeToImage(unsigned char **maze, unsigned char **image, int gridWidth, int gridHeight, int imageWidth, int imageHeight) {
     for (int i = 0; i < gridWidth; i++) {
         for (int j = 0; j < gridHeight; j++) {
+            printf("square drawn at (%d, %d)", i, j);
             square(
             i*(cellWidth + wallThickness) + wallThickness, 
             j*(cellHeight + wallThickness) + wallThickness,
@@ -24,7 +25,7 @@ void mazeToImage(unsigned char **maze, unsigned char **image, int gridWidth, int
             unsigned char a = maze[i][j];
             if (a == 1) {yOffset = -1;}
             if (a == 2) {xOffset = 1; }
-           if (a == 3) {yOffset = 1; }
+            if (a == 3) {yOffset = 1; }
             if (a == 4) {xOffset = -1;}
             if ((xOffset != 0 ) | ( yOffset != 0)) {
                 square(
@@ -43,8 +44,14 @@ int main() {
     int imageHeight = (gridHeight * (cellHeight + wallThickness)) + wallThickness;
     unsigned char **image = allocate_and_initialize_image(imageWidth, imageHeight);
     unsigned char **maze = allocate_and_initialize_maze(gridWidth, gridHeight);
+
     generateMaze(maze,gridWidth, gridHeight);
+    
+    //maze[0][gridHeight] = 1;
     mazeToImage(maze, image, gridWidth, gridHeight, imageWidth, imageHeight);
+
+    printf("test important %d  ", image[0][imageHeight-2]);
+
     create_png_from_array("Output_1bit.png", imageWidth, imageHeight, image);
     free_array((void**)image, imageHeight);
     free_array((void**)maze, gridHeight);

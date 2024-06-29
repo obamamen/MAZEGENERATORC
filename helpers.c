@@ -31,12 +31,12 @@ unsigned char** allocate_and_initialize_image(int width, int height) {
 }
 
 unsigned char** allocate_and_initialize_maze(int width, int height) {
-    unsigned char **array = (unsigned char **)malloc(height * sizeof(unsigned char *));
-    //check_allocation(array);
-    for (int i = 0; i < height; i++) {
-        array[i] = (unsigned char *)malloc(width * sizeof(unsigned char));
-        //check_allocation(array);
-        for (int j = 0; j < width; j++) {
+    unsigned char **array = (unsigned char **)malloc(width * sizeof(unsigned char *));
+    check_allocation(array);
+    for (int i = 0; i < width; i++) {
+        array[i] = (unsigned char *)malloc(height * sizeof(unsigned char));
+        check_allocation(array[i]);
+        for (int j = 0; j < height; j++) {
             array[i][j] = 0;
         }
     }
