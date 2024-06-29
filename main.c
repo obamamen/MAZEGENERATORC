@@ -11,8 +11,8 @@
 
 
 const int wallThickness = 1;
-const int gridWidth = 100;
-const int gridHeight = 100;
+const int gridWidth = 5000;
+const int gridHeight = 5000;
 const int cellWidth = 2;
 const int cellHeight = 2;
 
@@ -57,7 +57,6 @@ int main() {
 
     generateMaze(maze,gridWidth, gridHeight);
 
-    //maze[1][1] = 2;
     mazeToImage(maze, image, gridWidth, gridHeight, imageWidth, imageHeight);
 
     create_png_from_array("Output_1bit.png", imageWidth, imageHeight, image);

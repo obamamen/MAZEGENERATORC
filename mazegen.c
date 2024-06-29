@@ -12,22 +12,17 @@ void removeFromCells( unsigned int cells[],  unsigned int *cellsIndex) {
 }
 
 void generateMaze(unsigned char** maze, int width, int height) {
-    unsigned int cells[width*height];
+    size_t totalSize = width * height * sizeof(unsigned int) * 2;
     unsigned int cellsIndex = 0;
-    addToCells(cells,&cellsIndex,1,1);
+    unsigned int *cells = (unsigned int *)malloc(totalSize);
+    if (cells == NULL) {
+        fprintf(stderr, "Unable to allocate memory for cells array.\n");
+        return;
+    }
+    addToCells(cells,&cellsIndex,0,0);
 
-    printf("cells[0]: %d\n", cells[cellsIndex-1]);
-    printf("cells[1]: %d\n", cells[cellsIndex-2]);
 
-    addToCells(cells,&cellsIndex,5,12);
-
-    printf("cells[0]: %d\n", cells[cellsIndex-1]);
-    printf("cells[1]: %d\n", cells[cellsIndex-2]);
-
-    removeFromCells(cells,&cellsIndex);
-
-    printf("cells[0]: %d\n", cells[cellsIndex-1]);
-    printf("cells[1]: %d\n", cells[cellsIndex-2]);
+    //maze[0][0] = 1;
 }
 
 

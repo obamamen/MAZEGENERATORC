@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "lodepng.c"
 
+
 // Function to create PNG from array using lodepng
 void create_png_from_array(const char *filename, int width, int height, unsigned char **array) {
     unsigned char *image = NULL;
@@ -29,7 +30,7 @@ void create_png_from_array(const char *filename, int width, int height, unsigned
     }
 
     // Encode the image to PNG format using lodepng with 1-bit depth
-    unsigned error = lodepng_encode_file(filename, image, width, height, LCT_GREY, 1);
+    unsigned error = lodepng_encode_file(filename, image, width, height, 0, 1);
     if (error) {
         fprintf(stderr, "Error %u: %s\n", error, lodepng_error_text(error));
     }
