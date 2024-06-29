@@ -1,9 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "bitmap.c"
 #include "helpers.c"
-#include "dirs.c"
 #include "mazegen.c"
+#include "pngmaker.c"
 
 //      ___ ___     __   __                  __  ___     ___          __     __   __     __                           __     __        ___  __      __        __   __  ___ 
 //|    |__   |     /  \ |__)       |\/|  /\   / |__     |__  |\ |    |  \ | |__) /__`     / |    | |\ |    |  | |\ | /__` | / _` |\ | |__  |  \    /__` |__| /  \ |__)  |  
@@ -12,10 +11,10 @@
 
 
 const int wallThickness = 1;
-const int gridWidth = 2;
-const int gridHeight = 8;
-const int cellWidth = 4;
-const int cellHeight = 4;
+const int gridWidth = 100;
+const int gridHeight = 100;
+const int cellWidth = 2;
+const int cellHeight = 2;
 
 unsigned short directions[] = {1, 2, 3, 4};
 unsigned short DX[] = {0, 0, 1, 0, -1};
@@ -58,9 +57,10 @@ int main() {
 
     generateMaze(maze,gridWidth, gridHeight);
 
+    //maze[1][1] = 2;
     mazeToImage(maze, image, gridWidth, gridHeight, imageWidth, imageHeight);
 
-    create_1bit_bmp_from_array("output_1bit.bmp", imageWidth, imageHeight, image);
+    create_png_from_array("Output_1bit.png", imageWidth, imageHeight, image);
     free_array((void**)image, imageHeight);
     return 0;
 }
