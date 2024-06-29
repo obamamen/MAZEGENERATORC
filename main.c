@@ -4,22 +4,11 @@
 #include "mazegen.c"
 #include "pngmaker.c"
 
-//      ___ ___     __   __                  __  ___     ___          __     __   __     __                           __     __        ___  __      __        __   __  ___ 
-//|    |__   |     /  \ |__)       |\/|  /\   / |__     |__  |\ |    |  \ | |__) /__`     / |    | |\ |    |  | |\ | /__` | / _` |\ | |__  |  \    /__` |__| /  \ |__)  |  
-//|___ |___  |     \__/ |    .     |  | /~~\ /_ |___    |___ | \|    |__/ | |  \ .__/    /_ | \__/ | \|    \__/ | \| .__/ | \__> | \| |___ |__/    .__/ |  | \__/ |  \  |  
-//                           '                                                                                                                                             
-
-
 const int wallThickness = 1;
-const int gridWidth = 5000;
-const int gridHeight = 5000;
+const int gridWidth = 10000;
+const int gridHeight = 10000;
 const int cellWidth = 2;
 const int cellHeight = 2;
-
-unsigned short directions[] = {1, 2, 3, 4};
-unsigned short DX[] = {0, 0, 1, 0, -1};
-unsigned short DY[] = {0, -1, 0, 1, 0};
-unsigned short OPP[] = {0, 3, 4, 1, 2};
 
 void mazeToImage(unsigned char **maze, unsigned char **image, int gridWidth, int gridHeight, int imageWidth, int imageHeight) {
     for (int i = 0; i < gridWidth; i++) {
@@ -54,13 +43,11 @@ int main() {
     int imageHeight = (gridHeight * (cellHeight + wallThickness)) + wallThickness;
     unsigned char **image = allocate_and_initialize_image(imageWidth, imageHeight);
     unsigned char **maze = allocate_and_initialize_maze(gridWidth, gridHeight);
-
     generateMaze(maze,gridWidth, gridHeight);
-
     mazeToImage(maze, image, gridWidth, gridHeight, imageWidth, imageHeight);
-
     create_png_from_array("Output_1bit.png", imageWidth, imageHeight, image);
     free_array((void**)image, imageHeight);
+    free_array((void**)maze, gridHeight);
     return 0;
 }
 

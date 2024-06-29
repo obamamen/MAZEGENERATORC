@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
 void check_allocation(void *ptr) {
     if (!ptr) {
         fprintf(stderr, "Memory allocation failed\n");
