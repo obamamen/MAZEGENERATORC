@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
+//#include "bit.c"
 
 
 void check_allocation(void *ptr) {
@@ -9,11 +11,12 @@ void check_allocation(void *ptr) {
     }
 }
 
-void square(int x, int y, int sizeX, int sizeY, int in, unsigned char **array, int width, int height) {
+void square(int x, int y, int sizeX, int sizeY, int in, unsigned char **image, int width, int height) {
     for (int i = 0; i < sizeX; i++) {
         for (int j = 0; j < sizeY; j++) {
             if (x + i < width && y + j < height) {
-                array[y + i][x + j] = in;
+                int part = floor((x+j) / 8);
+                image[y + i][part] |= (in << ((x+j) % 8));
             }
         }
     }

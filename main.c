@@ -1,14 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #include "helpers.c"
 #include "mazegen.c"
 #include "pngmaker.c"
 
 
+
 int wallThickness = 1;
-int gridWidth = 11500; //11500 max
-int gridHeight =11500;
+int gridWidth = 14000; //11500 max
+int gridHeight =14000;
 int cellWidth = 2;
 int cellHeight = 2;
 
@@ -17,8 +19,8 @@ void mazeToImage(unsigned char **maze, unsigned char **image, int gridWidth, int
     for (int i = 0; i < gridWidth; i++) {
         for (int j = 0; j < gridHeight; j++) {
         iteration++;
-        if ((iteration % (gridWidth * gridHeight / 50) == 0) || (iteration == (gridWidth * gridHeight)-1)) {
-            double totSize = (gridWidth * gridHeight)-1;
+        if ((iteration % (gridWidth * gridHeight / 50) == 0) || (iteration == (gridWidth * gridHeight))) {
+            double totSize = (gridWidth * gridHeight);
             double it = iteration;
             printf("at %f procent of the mazeToImage\n", (it/totSize)*100);
          }
@@ -72,18 +74,10 @@ void mazeToImage(unsigned char **maze, unsigned char **image, int gridWidth, int
 int main() {
     int imageWidth = (gridWidth * (cellWidth + wallThickness)) + wallThickness;
     int imageHeight = (gridHeight * (cellHeight + wallThickness)) + wallThickness;
-    unsigned char **image = allocate_and_initialize_image(imageWidth, imageHeight);
+    unsigned char **image = allocate_and_initialize_image(floor(imageWidth/8), imageHeight);
     unsigned char **maze = allocate_and_initialize_maze(gridWidth, gridHeight);
-
     generateMaze(maze,gridWidth, gridHeight);
-    
-
-
-
     mazeToImage(maze, image, gridWidth, gridHeight, imageWidth, imageHeight);
-
-
-
     char name[50] = "Maze ";
     char add[50] = "";
     sprintf(add, "%d", gridWidth);
@@ -95,7 +89,7 @@ int main() {
     sprintf(add, ".png");
     strcat(name, add);
 
-    free_array((void**)maze, gridHeight);
+    free_array((void**)maze, gridWidth);
     create_png_from_array(name, imageWidth, imageHeight, image);
     free_array((void**)image, imageHeight);
     return 0;
