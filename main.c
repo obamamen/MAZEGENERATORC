@@ -9,8 +9,8 @@
 
 
 int wallThickness = 1;
-int gridWidth = 14000; //11500 max
-int gridHeight =14000;
+int gridWidth = 15000; 
+int gridHeight =15000;
 int cellWidth = 2;
 int cellHeight = 2;
 
@@ -50,7 +50,7 @@ void mazeToImage(unsigned char **maze, unsigned char **image, int gridWidth, int
             if ((i == 0) && (j == 0)) {
                 a = 4;
             }
-            if ((i == gridWidth) && (j == gridHeight)) {
+            if ((i == gridWidth-1) && (j == gridHeight-1)) {
                 a = 2;
             }
             xOffset = 0;
