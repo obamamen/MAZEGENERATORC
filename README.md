@@ -2,7 +2,7 @@
 
 ## Description
 
-**This project generates random 2d mazes using the growing tree algorithm and exports them as a PNG image file. This is 100% made in C whitout external libraries**.
+**This project generates random 2d mazes using the growing tree algorithm and exports them as a PNG image file. This is 100% made in C using lodepng as the PNG exporter**.
 
 ## Table of Contents
 
@@ -22,13 +22,12 @@
 - Maze dimensions (Width and height).
 - Thickness of the maze walls.
 - And some biases, like:
-  - chance of the next grid being the same as before.
   - change of it being a before specified direction.
 
 ## Installation
 
 - Download all the files and put it somewhere in a folder.
-- If you want to change some properties, they are in the main.c file, and then **compile**.
+- If you want to change some properties, they are in the main.c and in mazegen.c files, and then **compile**.
 
 ### Contributing
 

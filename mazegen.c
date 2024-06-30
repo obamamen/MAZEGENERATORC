@@ -2,14 +2,14 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h> 
-//#include "dirs.h"
 
-void addToCells( unsigned int cells[],  unsigned int *cellsIndex, int x, int y) {
+
+void addToCells( unsigned short cells[],  unsigned int *cellsIndex, int x, int y) {
     cells[*cellsIndex] = x;
     cells[*cellsIndex + 1] = y;
     *cellsIndex+=2;
 }
-void removeFromCells( unsigned int cells[],  unsigned int *cellsIndex) {
+void removeFromCells( unsigned short cells[],  unsigned int *cellsIndex) {
     *cellsIndex-=2;
 }
 
@@ -29,13 +29,12 @@ void shuffle(unsigned char *array, size_t n)
 }
 
 void generateMaze(unsigned char** maze, int width, int height) {
-    unsigned short directions[] = {1, 2, 3, 4};
     short DX[] = {0, 0, 1, 0, -1};
     short DY[] = {0, -1, 0, 1, 0};
     unsigned short OPP[] = {0, 3, 4, 1, 2};
-    size_t totalSize = width * height * sizeof(unsigned int) * 2;
+    size_t totalSize = width * height * sizeof(unsigned short) * 2;
     unsigned int cellsIndex = 0;
-    unsigned int *cells = (unsigned int *)malloc(totalSize);
+    unsigned short *cells = (unsigned short *)malloc(totalSize);
     if (cells == NULL) {
         fprintf(stderr, "Unable to allocate memory for cells array.\n");
         return;
@@ -44,7 +43,9 @@ void generateMaze(unsigned char** maze, int width, int height) {
     srand(time(0)); 
     int sx = 0; 
     int sy = 0;
+    int iteration = 0;
     while (cellsIndex > 0) {
+        iteration++;
         unsigned char dirs[] = {1, 2, 3, 4};
         char stuck = 1;
         shuffle(dirs, 4);
@@ -73,7 +74,13 @@ void generateMaze(unsigned char** maze, int width, int height) {
             }
         }
         if (stuck == 1) {removeFromCells(cells,&cellsIndex);
-            printf("Backtracking at (%d, %d)\n", x, y); // Debug statement
+            //printf("Backtracking at (%d, %d)\n", x, y); // Debug statement
+        }
+
+        if ((iteration % (width * height / 50) == 0) || (iteration == (width * height * 2)-1)) {
+            double totSize = (width * height * 2)-1;
+            double it = iteration;
+            printf("at %f procent of the generateMaze\n", (it/totSize)*100);
         }
     }
     free(cells);
