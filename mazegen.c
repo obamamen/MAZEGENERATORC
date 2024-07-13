@@ -52,7 +52,7 @@ void generateMaze(unsigned char** maze, int width, int height) {
         int x = cells[cellsIndex-2];
         int y = cells[cellsIndex-1];
         int a = rand() % 100;
-        if (a < 0) {
+        if (a < 50) {
             for (int i = 0; i < 4; ++i) {
                 if (dirs[i] == OPP[maze[x][y]]) {
                     unsigned char temp = dirs[0];

@@ -9,8 +9,8 @@
 
 
 int wallThickness = 1;
-int gridWidth = 15000; 
-int gridHeight =15000;
+int gridWidth = 15; 
+int gridHeight =24;
 int cellWidth = 2;
 int cellHeight = 2;
 
